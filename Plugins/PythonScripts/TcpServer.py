@@ -1,4 +1,6 @@
 import socket
+import struct
+# import numpy as np
 
 HOST = '0.0.0.0'  # Listen on all network interfaces
 PORT = 12345      # Port to listen on
@@ -21,10 +23,13 @@ while True:
     try:
         while True:
             # Receive data from the client
-            data = client_socket.recv(1024)
+            data = client_socket.recv(312)
             if not data:
                 break
             print(f"Received: {data}")
+            floats = struct.unpack('<78f', data)
+            position = [floats[i:i+3] for i in range(0, len(floats), 3)]
+            print("vector:", position)
 
             # Send a response back
             response = "Hello from Python!"

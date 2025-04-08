@@ -24,7 +24,7 @@ while True:
             data = client_socket.recv(1024)
             if not data:
                 break
-            print(f"Received: {data.decode()}")
+            print(f"Received: {data}")
 
             # Send a response back
             response = "Hello from Python!"

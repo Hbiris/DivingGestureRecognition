@@ -23,6 +23,7 @@ while True:
     try:
         while True:
             # Receive data from the client
+            '''
             data = client_socket.recv(312)
             if not data:
                 break
@@ -30,7 +31,15 @@ while True:
             floats = struct.unpack('<78f', data)
             position = [floats[i:i+3] for i in range(0, len(floats), 3)]
             print("vector:", position)
+            '''
+            data = recv_exact(sock, 312) # Receive 312 bytes (26 × 3 × 4)
+            floats = struct.unpack('<78f', data) # 78 little-endian floats
 
+# Group into 3D vectors
+            position_vectors = [floats[i:i+3] for i in range(0, len(floats), 3)]
+
+# Now position_vectors is a list of [x, y, z] lists
+            print(position_vectors)
             # Send a response back
             response = "Hello from Python!"
             client_socket.sendall(response.encode('utf-8'))

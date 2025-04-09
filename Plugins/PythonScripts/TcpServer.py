@@ -32,7 +32,7 @@ while True:
             position = [floats[i:i+3] for i in range(0, len(floats), 3)]
             print("vector:", position)
             '''
-            data = recv_exact(sock, 312) # Receive 312 bytes (26 × 3 × 4)
+            data = client_socket.recv(312) # Receive 312 bytes (26 × 3 × 4)
             floats = struct.unpack('<78f', data) # 78 little-endian floats
 
 # Group into 3D vectors

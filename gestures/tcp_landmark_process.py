@@ -57,10 +57,8 @@ def fetch_landmarks(data):
 
 
 def main():
-    print("hello")
     # Model load #############################################################
     keypoint_classifier = KeyPointClassifier()
-    print("world")
     # Read labels ###########################################################
     with open('model/keypoint_classifier/keypoint_classifier_label.csv',
               encoding='utf-8-sig') as f:

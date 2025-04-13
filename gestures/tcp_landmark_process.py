@@ -40,10 +40,9 @@ def flatToLandmark(flat_list):
 # === Read stdin ===
 def fetch_landmarks(data):
     try:
-        raw_input = data.strip()
-        input_vector = list(map(float, raw_input.split(",")))
+        input_vector = np.frombuffer(data, dtype=np.float32).tolist()
 
-        if len(input_vector) != LANDMARK_PARMS_NUM * LANDMARK_DIM_NUM:
+        if len(input_vector) != 63:
             raise ValueError("Expected 63 comma-separated values for 21 3D landmarks.")
 
         if(DETAIL_PRINT_MODE): 
@@ -58,8 +57,10 @@ def fetch_landmarks(data):
 
 
 def main():
+    print("hello")
     # Model load #############################################################
     keypoint_classifier = KeyPointClassifier()
+    print("world")
     # Read labels ###########################################################
     with open('model/keypoint_classifier/keypoint_classifier_label.csv',
               encoding='utf-8-sig') as f:
@@ -84,7 +85,8 @@ def main():
                 if(DETAIL_PRINT_MODE): 
                     print(f"🔗 Connection from {addr}")
                 while True:
-                    data = conn.recv(4096).decode('utf-8')
+                    # 63 * 4 (np.float32 is 4 byte) = 252
+                    data = conn.recv(252)
                     if not data:
                         break
                     if(DETAIL_PRINT_MODE): 

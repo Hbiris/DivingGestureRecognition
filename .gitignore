@@ -82,3 +82,4 @@ gestures/model/keypoint_classifier/my_test_keypoint.csv
 
 .DS_Store
 
+.venv/

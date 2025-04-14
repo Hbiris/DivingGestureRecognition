@@ -80,3 +80,5 @@ gestures/model/__pycache__
 gestures/model/*/__pycache__
 gestures/model/keypoint_classifier/my_test_keypoint.csv
 
+.DS_Store
+

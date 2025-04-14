@@ -46,7 +46,7 @@ while True:
             print("vector:", position)
             '''
             data = client_socket.recv(312) # Receive 312 bytes (26 × 3 × 4
-            )
+            
 
             floats = struct.unpack('<78f', data) # 78 little-endian floats
 

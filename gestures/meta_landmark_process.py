@@ -31,7 +31,7 @@ CLASSIFY_MODE = 0
 RECORD_MODE = 1
 # record path select
 RECORD_CSV_PATH = r'C:\Users\irisbian\divinghandrecognition\gestures\model\keypoint_classifier\new_keypoint.csv'
-RECORD_INPUT_PATH = r'C:\Users\irisbian\divinghandrecognition\output_dir.txt'
+RECORD_INPUT_PATH = r'C:\Users\irisbian\divinghandrecognition\output_ok2.txt'
 
 # classify path
 CLASSIFY_LABEL_CSV_PATH = r'C:\Users\irisbian\divinghandrecognition\gestures\model\keypoint_classifier\new_keypoint_classifier_label.csv'

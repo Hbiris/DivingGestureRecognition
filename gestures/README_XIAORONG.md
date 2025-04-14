@@ -5,7 +5,7 @@
 * Tensorflow 2.3.0 or Later<br>tf-nightly 2.5.0.dev or later (Only when creating a TFLite for an LSTM model)
 * scikit-learn 0.23.2 or Later (Only if you want to display the confusion matrix) 
 * matplotlib 3.3.2 or Later (Only if you want to display the confusion matrix)
-readme里有specify他的，不过我下最新的也可以：
+readme里有specify他的，不过我下最新的也可以：(python 3.9.21)
 matplotlib                   3.9.4
 mediapipe                    0.10.21
 opencv-python                4.11.0.86

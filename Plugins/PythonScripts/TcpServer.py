@@ -26,12 +26,12 @@ server_socket.bind((HOST, PORT))
 
 # Start listening for connections
 server_socket.listen(5)
-print(f"Server listening on {HOST}:{PORT}...")
+# print(f"Server listening on {HOST}:{PORT}...")
 
 while True:
     # Accept a new connection
     client_socket, client_address = server_socket.accept()
-    print(f"Connected by {client_address}")
+    # print(f"Connected by {client_address}")
 
     try:
         while True:
@@ -79,4 +79,4 @@ while True:
         client_socket.close()
         server_socket.close()
         # gesture_server_socket.close()
-        print(f"Disconnected from all 3 sockets")
+        # print(f"Disconnected from all 3 sockets")

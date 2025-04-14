@@ -21,7 +21,7 @@ LANDMARK_PARMS_NUM = 21
 LANDMARK_DIM_NUM = 3
 host = '127.0.0.1'
 port = 5005
-DETAIL_PRINT_MODE = False
+DETAIL_PRINT_MODE = True
 
 class Landmark:
     def __init__(self, x, y, z):
@@ -60,8 +60,7 @@ def main():
     # Model load #############################################################
     keypoint_classifier = KeyPointClassifier()
     # Read labels ###########################################################
-    with open('model/keypoint_classifier/keypoint_classifier_label.csv',
-              encoding='utf-8-sig') as f:
+    with open('C:/Users/irisbian/divinghandrecognition/gestures/model/keypoint_classifier/keypoint_classifier_label.csv', encoding='utf-8-sig') as f:
         keypoint_classifier_labels = csv.reader(f)
         keypoint_classifier_labels = [
             row[0] for row in keypoint_classifier_labels

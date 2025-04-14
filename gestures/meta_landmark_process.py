@@ -9,6 +9,7 @@ from collections import deque
 import socket
 from time import sleep
 import os
+import ast
 
 import cv2 as cv
 import numpy as np
@@ -28,11 +29,13 @@ DETAIL_PRINT_MODE = False #debug log
  #main mode select
 CLASSIFY_MODE = 0
 RECORD_MODE = 1
-#record path select 
-RECORD_CSV_PATH = 'model/keypoint_classifier/my_test_keypoint.csv'
-RECORD_INPUT_PATH = 'output.txt'
-#classify path 
-CLASSIFY_LABEL_CSV_PATH = 'model/keypoint_classifier/keypoint_classifier_label.csv'
+# record path select
+RECORD_CSV_PATH = r'C:\Users\irisbian\divinghandrecognition\gestures\model\keypoint_classifier\new_keypoint.csv'
+RECORD_INPUT_PATH = r'C:\Users\irisbian\divinghandrecognition\output_dir.txt'
+
+# classify path
+CLASSIFY_LABEL_CSV_PATH = r'C:\Users\irisbian\divinghandrecognition\gestures\model\keypoint_classifier\new_keypoint_classifier_label.csv'
+
 
 
 
@@ -81,16 +84,24 @@ def record(number):
     csv_path = RECORD_CSV_PATH
     os.makedirs(os.path.dirname(csv_path), exist_ok=True)
 
-    with open(input_path, 'r') as f_in, open(csv_path, 'a', newline="") as f_out:
+    with open(input_path, 'r', encoding='utf-16') as f_in, open(csv_path, 'a', newline="") as f_out:
         writer = csv.writer(f_out)
 
         for line in f_in:
-            coords = list(map(float, line.strip().split(',')))
-            if len(coords) != LANDMARK_PARMS_NUM*LANDMARK_DIM_NUM:  # num of x,y,z total points
-                print("Skipped invalid line:", line, "len:", len(coords))
+            try:
+                # Parse string as list of (x, y, z) tuples
+                points = ast.literal_eval(line.strip())
+            except Exception as e:
+                print("❌ Skipped line (parse error):", line)
                 continue
-            #Fetch input landmarks (x,y,z) but only get (x,y)
-            landmarks = [Landmark_2D(coords[i], coords[i + 1]) for i in range(0, len(coords), LANDMARK_DIM_NUM)]
+
+            if len(points) != LANDMARK_PARMS_NUM:
+                print("❌ Skipped line (wrong number of landmarks):", len(points))
+                continue
+
+            # Extract only x and y
+            landmarks = [Landmark_2D(x, y) for x, y, z in points]
+
             raw_landmarks = calc_landmark_list(landmarks)
             landmark_list = pre_process_landmark(raw_landmarks)
 

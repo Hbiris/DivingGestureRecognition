@@ -30,11 +30,11 @@ DETAIL_PRINT_MODE = False #debug log
 CLASSIFY_MODE = 0
 RECORD_MODE = 1
 # record path select
-RECORD_CSV_PATH = r'C:\Users\irisbian\divinghandrecognition\gestures\model\keypoint_classifier\new_keypoint.csv'
-RECORD_INPUT_PATH = r'C:\Users\irisbian\divinghandrecognition\output_ok2.txt'
+RECORD_CSV_PATH = r'C:\Users\trevlee\Documents\divinghandrecognition\Plugins\PythonScripts\newGesture.csv'
+RECORD_INPUT_PATH = r'C:\Users\trevlee\Documents\divinghandrecognition\newGestureQuestion.txt'
 
 # classify path
-CLASSIFY_LABEL_CSV_PATH = r'C:\Users\irisbian\divinghandrecognition\gestures\model\keypoint_classifier\new_keypoint_classifier_label.csv'
+CLASSIFY_LABEL_CSV_PATH = r'C:\Users\trevlee\Documents\divinghandrecognition\gestures\model\keypoint_classifier\new_keypoint_classifier_label.csv'
 
 
 
@@ -60,13 +60,30 @@ def flatToLandmark(flat_list):
     return landmark_list
 
 # === Read stdin ===
+# def fetch_landmarks(data):
+#     try:
+#         raw_input = data.strip()
+#         input_vector = list(map(float, raw_input.split(",")))
+
+#         if len(input_vector) != LANDMARK_PARMS_NUM * LANDMARK_DIM_NUM:
+#             raise ValueError("Expected ",  LANDMARK_PARMS_NUM * LANDMARK_DIM_NUM," comma-separated values for 3D landmarks.")
+
+#         if(DETAIL_PRINT_MODE): 
+#             print("✅ input:", input_vector)
+#         landmark_list = flatToLandmark(input_vector)
+#         return landmark_list
+
+
+#     except Exception as e:
+#         print("❌ Error:", e)
+#         sys.exit(1)
+
 def fetch_landmarks(data):
     try:
-        raw_input = data.strip()
-        input_vector = list(map(float, raw_input.split(",")))
+        input_vector = np.frombuffer(data, dtype=np.float32).tolist()
 
-        if len(input_vector) != LANDMARK_PARMS_NUM * LANDMARK_DIM_NUM:
-            raise ValueError("Expected ",  LANDMARK_PARMS_NUM * LANDMARK_DIM_NUM," comma-separated values for 3D landmarks.")
+        if len(input_vector) != 78:
+            raise ValueError("Expected 78 comma-separated values for 26 3D landmarks.")
 
         if(DETAIL_PRINT_MODE): 
             print("✅ input:", input_vector)
@@ -77,7 +94,6 @@ def fetch_landmarks(data):
     except Exception as e:
         print("❌ Error:", e)
         sys.exit(1)
-
 
 def record(number):
     input_path = RECORD_INPUT_PATH
@@ -132,7 +148,8 @@ def classify():
                 if(DETAIL_PRINT_MODE): 
                     print(f"🔗 Connection from {addr}")
                 while True:
-                    data = conn.recv(4096).decode('utf-8')
+                    # 26 * 3 * 4 (np.float32 is 4 byte) = 252
+                    data = conn.recv(312)
                     if not data:
                         break
                     if(DETAIL_PRINT_MODE): 
@@ -152,6 +169,8 @@ def classify():
 
                         hand_sign_id = keypoint_classifier(pre_processed_landmark_list)
                         print("✅ classification: hand_sign_id ", hand_sign_id)
+                        result = keypoint_classifier_labels[hand_sign_id]
+                        conn.sendall(result.encode('utf-8'))
                     except Exception as e:
                         print("❌ Error processing landmarks:", e)
 

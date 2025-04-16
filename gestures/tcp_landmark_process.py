@@ -82,8 +82,8 @@ def main():
                 if(DETAIL_PRINT_MODE): 
                     print(f"🔗 Connection from {addr}")
                 while True:
-                    # 63 * 4 (np.float32 is 4 byte) = 252
-                    data = conn.recv(252)
+                    # 26 * 3 * 4 (np.float32 is 4 byte) = 252
+                    data = conn.recv(312)
                     if not data:
                         break
                     if(DETAIL_PRINT_MODE): 

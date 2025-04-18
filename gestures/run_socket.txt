@@ -1,0 +1,12 @@
+1. .venv\Scripts\activate in divingHnadRecognition
+2. copy the path for meta_landmark_process.py inside gestures folder
+3. python [meta_landmark_process.py_path from step 2]
+4. copy the path for tcp_server.py in plugins/pythonscript 
+5. python [tcp_server.py_path from step 4] (run it in separate terminal)
+
+
+Note: 
+- must run meta_landmark_process.py first and then run tcp_server.py second
+- Step 3 and Step 5 need to run in separate terminals
+- If any of the python files stuck (cannot quit with ctrl+c), close the terminal and re-open one. 
+

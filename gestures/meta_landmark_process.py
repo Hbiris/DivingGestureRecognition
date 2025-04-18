@@ -30,11 +30,11 @@ DETAIL_PRINT_MODE = False #debug log
 CLASSIFY_MODE = 0
 RECORD_MODE = 1
 # record path select
-RECORD_CSV_PATH = r'C:\Users\trevlee\Documents\divinghandrecognition\Plugins\PythonScripts\newGesture.csv'
-RECORD_INPUT_PATH = r'C:\Users\trevlee\Documents\divinghandrecognition\newGestureQuestion.txt'
+RECORD_CSV_PATH = r'C:\Users\irisbian\divinghandrecognition\Plugins\PythonScripts\newGesture.csv'
+RECORD_INPUT_PATH = r'C:\Users\irisbian\divinghandrecognition\newGestureQuestion.txt'
 
 # classify path
-CLASSIFY_LABEL_CSV_PATH = r'C:\Users\trevlee\Documents\divinghandrecognition\gestures\model\keypoint_classifier\new_keypoint_classifier_label.csv'
+CLASSIFY_LABEL_CSV_PATH = r'C:\Users\irisbian\divinghandrecognition\gestures\model\keypoint_classifier\new_keypoint_classifier_label.csv'
 
 
 
